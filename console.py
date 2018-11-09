@@ -21,13 +21,13 @@ class HBNBCommand(cmd.Cmd):
 
     """ 7. Console 0.1 """
 
-    def do_create(self, cls):
+    def do_create(self, line):
         """Creates a new instance of BaseModel and saves it to a JSON file,
         then prints the id of the newly created instance. """
-        if cls == "":
+        if line == "":
             print ("** class name missing **")
             return
-        if cls not in models:
+        if line not in models:
             print("** class doesn't exist **")
             return
 
@@ -50,12 +50,33 @@ class HBNBCommand(cmd.Cmd):
         if len(token) == 1 or token[1] == "":
             print ("** instance id missing **")
             return
-        if token[1] != newBM.id:
-            print ("** no instance found **")
+
+    def do_destroy(self, argv):
+        """Deletes an instance based on the class name and id.
+        Saves the changes to the JSON file. """
+        token = shlex.split(argv)
+
+        if len(token) == 0 or token[0] == "":
+            print ("** class name missing **")
+            return
+        if token[0] not in models:
+            print ("** class doesn't exist **")
+            return
+        if len(token) == 1 or token[1] == "":
+            print ("** instance id missing **")
             return
 
+    def do_all(self, line):
+        """Prints all string representation of all
+        instances based on or not on the class name."""
+        if args not in models:
+            print ("** class doesn't exist **")
+            return
 
-
+    def do_update(self, argv):
+        """ Updates an instance based on the class name and id
+        by adding or updating attribute (save the
+        change into the JSON file). """
 
 
 
@@ -63,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         """Gives a new prompt if nothing was entered. """
         pass
 
-    def do_quit(self, args):
+    def do_quit(self, line):
         """Quits the program by typing quit."""
         return True
 
