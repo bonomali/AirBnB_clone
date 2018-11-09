@@ -101,6 +101,7 @@ File|Description
 ---|---
 README.md| A file containing the goal of the project and the requirements and restrictions followed while creating it
 AUTHORS| A file listing the contributors to the repository
+base_model.py | A file detailing the functionality of the base class upon which all other classes in this console will based
 
 ---
 ## Authors
