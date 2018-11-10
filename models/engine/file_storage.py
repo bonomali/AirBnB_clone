@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This module defines a class FileStorage"""
 import json
+from models.base_model import BaseModel
 
 class FileStorage:
     """This class defines how File Storage works
@@ -33,18 +34,16 @@ class FileStorage:
         dicts = {}
         for key, value in FileStorage.__objects.items():
             dicts[key] = value.to_dict()
-        with open(FileStorage.__file_path, "w") as file:
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as file:
             json.dump(dicts, file)
 
     def reload(self):
         """Deserializes __objects from the JSON file
         """
-        dicts = {}
         try:
-            with open(FileStorage.__file_path, "r") as file:
-                    dicts = json.load(file)
-                    FileStorage.__objects = {}
-                    for key, value in dicts.items():
-                        print(value)
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
+                fload = json.load(file)
+                for key, value in fload.items():
+                    self.__objects[key] = BaseModel(**value)
         except FileNotFoundError:
             pass
