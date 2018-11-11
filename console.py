@@ -5,7 +5,10 @@
 import cmd
 from sys import argv
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+import models
 import shlex
+storage = models.storage
 
 """ List of classes / models """
 models = {"BaseModel"}
@@ -32,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         newBM = BaseModel()
-        """ Save to json file step """
+        newBM.save()
         print ("{}".format(newBM.id))
 
 
@@ -50,6 +53,12 @@ class HBNBCommand(cmd.Cmd):
         if len(token) == 1 or token[1] == "":
             print ("** instance id missing **")
             return
+        else:
+            obj = storage.get_obj(token[1])
+            if obj is None or obj.__class__.__name__ != token[0]:
+                print ("** no instance found **")
+            else:
+                print (str(obj))
 
     def do_destroy(self, argv):
         """Deletes an instance based on the class name and id.
@@ -65,11 +74,29 @@ class HBNBCommand(cmd.Cmd):
         if len(token) == 1 or token[1] == "":
             print ("** instance id missing **")
             return
+        else:
+            obj = storage.get_obj(token[1])
+            if obj is None or obj.__class__.__name__ != token[0]:
+                print ("** no instance found **")
+            else:
+                del storage.all()[token[0] + "." + token[1]]
+                storage.save()
 
-    def do_all(self, line):
+    def do_all(self, argv):
         """Prints all string representation of all
         instances based on or not on the class name."""
-        if args not in models:
+        token = shlex.split(argv)
+
+        if len(token) == 0:
+            objects = storage.all()
+            lst = [str(objects[obj]) for obj in objects]
+            print(lst)
+        elif len(token) > 0 and token[0] in models:
+            objects2 = storage.all()
+            lst2 = [str(objects2[obj]) for obj in objects2 if token[0] in obj]
+            print(lst2)
+
+        elif token[0] not in models:
             print ("** class doesn't exist **")
             return
 
@@ -77,7 +104,6 @@ class HBNBCommand(cmd.Cmd):
         """ Updates an instance based on the class name and id
         by adding or updating attribute (save the
         change into the JSON file). """
-
 
 
     def emptyline(self):
