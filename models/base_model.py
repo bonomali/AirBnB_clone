@@ -5,18 +5,19 @@ import uuid
 from datetime import datetime
 import models
 
+
 class BaseModel:
     """This class defines a Base Model
-    Attributes:
-    id (string): id number assigned when an instance is created
-    created_at (datetime): assigned with the current datetime when an instance
-    is created
-    updated_at (datetime): assigned with the current datetime when an instance
-    is created and it will be updated every time the object is changed
     """
 
     def __init__(self, *args, **kwargs):
         """Initialization of BaseModel
+        Attributes:
+        id (string): id number assigned when an instance is created
+        created_at (datetime): assigned with the current datetime when an instance
+        is created
+        updated_at (datetime): assigned with the current datetime when an instance
+        is created and it will be updated every time the object is changed
         """
         format = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
