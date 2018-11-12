@@ -6,12 +6,19 @@ import cmd
 from sys import argv
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.place import Place
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 import models
 import shlex
 storage = models.storage
 
 """ List of classes / models """
-models = {"BaseModel"}
+models = {"BaseModel": BaseModel, "User": User, "Place": Place,
+          "Amenity": Amenity, "Review": Review, "City": City, "State": State}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -31,9 +38,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        newBM = BaseModel()
-        newBM.save()
-        print("{}".format(newBM.id))
+        for k, v in models.items():
+            if k == line:
+                value = v
+        new = value()
+        new.save()
+        print("{}".format(new.id))
 
     def do_show(self, argv):
         """ Prints the string representation of an instance based on the class
@@ -101,7 +111,6 @@ class HBNBCommand(cmd.Cmd):
         elif token[0] not in models:
             print("** class doesn't exist **")
 
-
     def do_update(self, argv):
         """Updates an instance based on the class name and id
         by adding or updating attribute. Changes are saved to the json file.
@@ -128,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** attribute name missing **")
 
             elif len(token) == 3:
-                print ("** value missing **")
+                print("** value missing **")
 
             else:
                 obj_dict = storage.all()
