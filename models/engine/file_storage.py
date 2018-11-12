@@ -2,6 +2,13 @@
 """This module defines a class FileStorage"""
 import json
 from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
+
 
 class FileStorage:
     """This class defines how File Storage works
@@ -11,6 +18,9 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
+    all_classes = {"BaseModel": BaseModel, "User": User, "Amenity": Amenity,
+                   "City": City, "Place": Place, "Review": Review,
+                   "State": State}
 
     def all(self):
         """Gives the dictionary __objects
@@ -44,7 +54,8 @@ class FileStorage:
             with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
                 fload = json.load(file)
                 for key, value in fload.items():
-                    self.__objects[key] = BaseModel(**value)
+                    val = FileStorage.all_classes[value["__class__"]](**value)
+                    FileStorage.__objects[key] = val
         except FileNotFoundError:
             pass
 
