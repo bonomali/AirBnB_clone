@@ -5,17 +5,20 @@
 import cmd
 from sys import argv
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+import models
 import shlex
+storage = models.storage
 
 """ List of classes / models """
 models = {"BaseModel"}
+
 
 class HBNBCommand(cmd.Cmd):
     """ Class containing hbnb commands """
     intro = '∆===∆===∆ Welcome to the hbnb shell. Type ? for help. ∆===∆===∆\n'
     prompt = '(hbnb) '
     file = None
-
 
     """ Commands """
 
@@ -25,16 +28,15 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance of BaseModel and saves it to a JSON file,
         then prints the id of the newly created instance. """
         if line == "":
-            print ("** class name missing **")
+            print("** class name missing **")
             return
         if line not in models:
             print("** class doesn't exist **")
             return
 
         newBM = BaseModel()
-        """ Save to json file step """
-        print ("{}".format(newBM.id))
-
+        newBM.save()
+        print("{}".format(newBM.id))
 
     def do_show(self, argv):
         """ Prints the string representation of an instance based on the class
@@ -42,43 +44,71 @@ class HBNBCommand(cmd.Cmd):
         token = shlex.split(argv)
 
         if len(token) == 0 or token[0] == "":
-            print ("** class name missing **")
-            return
-        if token[0] not in models:
-            print ("** class doesn't exist **")
-            return
-        if len(token) == 1 or token[1] == "":
-            print ("** instance id missing **")
-            return
+            print("** class name missing **")
+
+        elif token[0] not in models:
+            print("** class doesn't exist **")
+
+        elif len(token) == 1 or token[1] == "":
+            print("** instance id missing **")
+
+        else:
+            obj = storage.get_obj(token[1])
+            if obj is None or obj.__class__.__name__ != token[0]:
+                print("** no instance found **")
+            else:
+                print(str(obj))
 
     def do_destroy(self, argv):
         """Deletes an instance based on the class name and id.
         Saves the changes to the JSON file. """
+
         token = shlex.split(argv)
 
         if len(token) == 0 or token[0] == "":
-            print ("** class name missing **")
-            return
-        if token[0] not in models:
-            print ("** class doesn't exist **")
-            return
-        if len(token) == 1 or token[1] == "":
-            print ("** instance id missing **")
-            return
+            print("** class name missing **")
 
-    def do_all(self, line):
+        elif token[0] not in models:
+            print("** class doesn't exist **")
+
+        elif len(token) == 1 or token[1] == "":
+            print("** instance id missing **")
+
+        else:
+            obj = storage.get_obj(token[1])
+            if obj is None or obj.__class__.__name__ != token[0]:
+                print("** no instance found **")
+
+            else:
+                del storage.all()[token[0] + "." + token[1]]
+                storage.save()
+                print("Delete successful")
+
+    def do_all(self, argv):
         """Prints all string representation of all
-        instances based on or not on the class name."""
-        if args not in models:
-            print ("** class doesn't exist **")
-            return
+        instances based on class name, or if no class name is specified,
+        print all instances."""
+
+        token = shlex.split(argv)
+
+        if len(token) == 0:
+            objects = storage.all()
+            lst = [str(objects[obj]) for obj in objects]
+            print(lst)
+
+        elif len(token) > 0 and token[0] in models:
+            objects2 = storage.all()
+            lst2 = [str(objects2[obj]) for obj in objects2 if token[0] in obj]
+            print(lst2)
+
+        elif token[0] not in models:
+            print("** class doesn't exist **")
+
 
     def do_update(self, argv):
-        """ Updates an instance based on the class name and id
+        """Updates an instance based on the class name and id
         by adding or updating attribute (save the
         change into the JSON file). """
-
-
 
     def emptyline(self):
         """Gives a new prompt if nothing was entered. """
