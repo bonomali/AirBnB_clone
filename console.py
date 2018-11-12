@@ -18,11 +18,8 @@ class HBNBCommand(cmd.Cmd):
     """ Class containing hbnb commands """
     intro = '∆===∆===∆ Welcome to the hbnb shell. Type ? for help. ∆===∆===∆\n'
     prompt = '(hbnb) '
-    file = None
 
     """ Commands """
-
-    """ 7. Console 0.1 """
 
     def do_create(self, line):
         """Creates a new instance of BaseModel and saves it to a JSON file,
@@ -107,8 +104,37 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, argv):
         """Updates an instance based on the class name and id
-        by adding or updating attribute (save the
-        change into the JSON file). """
+        by adding or updating attribute. Changes are saved to the json file.
+        Usage - update <class name> <id> <attribute name> "<attribute value>"
+        """
+
+        token = shlex.split(argv)
+
+        if len(token) == 0 or token[0] == "":
+            print("** class name missing **")
+
+        elif token[0] not in models:
+            print("** class doesn't exist **")
+
+        elif len(token) == 1 or token[1] == "":
+            print("** instance id missing **")
+
+        else:
+            obj = storage.get_obj(token[1])
+            if obj is None or obj.__class__.__name__ != token[0]:
+                print("** no instance found **")
+
+            elif len(token) == 2:
+                print("** attribute name missing **")
+
+            elif len(token) == 3:
+                print ("** value missing **")
+
+            else:
+                obj_dict = storage.all()
+                key = obj.__class__.__name__ + "." + obj.id
+                setattr(obj_dict[key], token[2], token[3])
+                storage.save()
 
     def emptyline(self):
         """Gives a new prompt if nothing was entered. """
