@@ -49,17 +49,20 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.base1, BaseModel())
         self.assertTrue(hasattr(self.base1, "id"))
         self.assertNotEqual(self.base1, self.base2)
+        self.assertEqual(self.base1.created_at, self.base1.updated_at)
 
         # Test that values are strings as intended
         self.assertIsInstance(self.base1.id, str)
         self.assertIsInstance(self.base1.created_at, str)
         self.assertIsInstance(self.base1.updated_at, str)
 
-    def test_str(self):
-        """Test printing of string representation of the instance"""
-
     def save(self):
         """Test if instance can be saved"""
+        self.base1.save()
+        self.assertNotEqual(self.base1.created_at, self.base1.updated_at)
 
     def to_dict(self):
-        """Test that a dictionary containing all keys/values of __dict__ of the instance is returned"""
+        """Test that a dictionary containing all keys/values of __dict__ of the
+        instance is returned"""
+        base1_dict = self.base1.to_dict()
+        self.assertEqual(self.base1.__class__.__name__, "BaseModel")
