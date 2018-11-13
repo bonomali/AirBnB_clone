@@ -44,6 +44,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(BaseModel.__init__.__doc__)
         self.assertTrue(BaseModel.save.__doc__)
         self.assertTrue(BaseModel.to_dict.__doc__)
+        self.assertTrue(BaseModel.__str__.__doc__)
+
 
     def test_basic(self):
         """Test basic functionality of class"""
