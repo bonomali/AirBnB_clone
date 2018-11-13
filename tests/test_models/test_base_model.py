@@ -19,6 +19,7 @@ class TestBaseModel(unittest.TestCase):
         cls.base2.name = "Betty"
         cls.base2.my_number = 98
 
+    @classmethod
     def tearDownClass(cls):
         """Tears down the instances"""
         del cls.base1
@@ -46,15 +47,13 @@ class TestBaseModel(unittest.TestCase):
     def test_basic(self):
         """Test basic functionality of class"""
         # Test instance creation
-        self.assertIsInstance(self.base1, BaseModel())
+        self.assertIsInstance(self.base1, BaseModel)
         self.assertTrue(hasattr(self.base1, "id"))
         self.assertNotEqual(self.base1, self.base2)
         self.assertEqual(self.base1.created_at, self.base1.updated_at)
 
         # Test that values are strings as intended
         self.assertIsInstance(self.base1.id, str)
-        self.assertIsInstance(self.base1.created_at, str)
-        self.assertIsInstance(self.base1.updated_at, str)
 
     def save(self):
         """Test if instance can be saved"""
@@ -66,3 +65,5 @@ class TestBaseModel(unittest.TestCase):
         instance is returned"""
         base1_dict = self.base1.to_dict()
         self.assertEqual(self.base1.__class__.__name__, "BaseModel")
+        self.assertIsInstance(base1_dict["created_at"], str)
+        self.assertIsInstance(base1_dict["updated_at"], str)
