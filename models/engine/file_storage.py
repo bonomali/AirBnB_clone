@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class FileStorage"""
+
 import json
 from models.base_model import BaseModel
 from models.amenity import Amenity
@@ -66,4 +67,4 @@ class FileStorage:
         for value in obj.values():
             if value.id == id:
                 return value
-        print ("No match found.")
+        print("No match found.")
