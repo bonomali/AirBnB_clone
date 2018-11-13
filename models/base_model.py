@@ -14,10 +14,11 @@ class BaseModel:
         """Initialization of BaseModel
         Attributes:
         id (string): id number assigned when an instance is created
-        created_at (datetime): assigned with the current datetime when an instance
-        is created
-        updated_at (datetime): assigned with the current datetime when an instance
-        is created and it will be updated every time the object is changed
+        created_at (datetime): assigned with the current datetime when an
+        instance is created
+        updated_at (datetime): assigned with the current datetime when an
+        instance is created and it will be updated every time the object
+        is changed.
         """
         format = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:

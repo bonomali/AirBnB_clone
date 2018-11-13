@@ -58,3 +58,12 @@ class FileStorage:
                     FileStorage.__objects[key] = val
         except FileNotFoundError:
             pass
+
+    def get_obj(cls, id):
+        """ Checks the id against objects, the objects in __objects, and if
+        there is a match, return the object. """
+        obj = cls.__objects
+        for value in obj.values():
+            if value.id == id:
+                return value
+        print ("No match found.")
