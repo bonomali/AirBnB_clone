@@ -95,6 +95,3 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.u1_dict.__class__.__name__, "User")
         self.assertIsInstance(u1_dict["created_at"], str)
         self.assertIsInstance(u1_dict["updated_at"], str)
-
-if __name__ == "__main__":
-    unittest.main()

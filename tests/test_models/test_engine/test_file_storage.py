@@ -28,10 +28,6 @@ class TestFileStorage(unittest.TestCase):
     def tearDownClass(cls):
         """Tears down the instances"""
         del cls.user
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -85,6 +81,3 @@ class TestFileStorage(unittest.TestCase):
         objects = self.stored.all()
         for key in dictionary:
             self.assertEqual(objects[key].to_dict(), dicts[key])
-
-if __name__ == "__main__":
-    unittest.main()
