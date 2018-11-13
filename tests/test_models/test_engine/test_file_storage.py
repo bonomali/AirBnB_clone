@@ -42,7 +42,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(FileStorage, "new"))
         self.assertTrue(hasattr(FileStorage, "reload"))
 
-
     def test_docs(self):
         """Is everything documented?"""
         self.assertTrue(FileStorage.__doc__)
@@ -71,7 +70,9 @@ class TestFileStorage(unittest.TestCase):
             os.remove("file.json")
         except Exception:
             pass
-        shutil.copy("./tests/test_models/test_engine/example.txt", "./file.json")
+        shutil.copy(
+            "./tests/test_models/test_engine/example.txt",
+            "./file.json")
         with open("./file.json") as file:
             dictionary = json.load(file)
         self.stored.reload()
