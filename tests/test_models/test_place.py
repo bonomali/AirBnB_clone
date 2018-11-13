@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Unittest for Place class
 """
-
+import os
 import unittest
 import pep8
 from models.base_model import BaseModel
@@ -32,6 +32,10 @@ class TestPlace(unittest.TestCase):
     def tearDownClass(cls):
         """Tears down the instances"""
         del cls.p1
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -98,12 +102,18 @@ class TestPlace(unittest.TestCase):
         self.assertIsInstance(self.p1.longitude, float)
         self.assertIsInstance(self.p1.amenity_ids, list)
 
-    def to_dict(self):
+    def test_save(self):
+        """Test if instance can be saved"""
+        self.p1.save()
+        self.assertNotEqual(self.p1.created_at, self.p1.updated_at)
+
+    def test_to_dict(self):
         """ Pass """
         p1_dict = self.p1_dict.to_dict()
         self.assertEqual(self.p1_dict.__class__.__name__, "Place")
         self.assertIsInstance(p1_dict["created_at"], str)
         self.assertIsInstance(p1_dict["updated_at"], str)
+
 
 if __name__ == "__main__":
     unittest.main()

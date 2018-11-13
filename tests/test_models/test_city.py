@@ -7,6 +7,7 @@ import pep8
 from models.base_model import BaseModel
 from models.city import City
 import json
+import os
 
 
 class TestCity(unittest.TestCase):
@@ -28,6 +29,10 @@ class TestCity(unittest.TestCase):
         """Tears down the instances"""
         del cls.c1
         del cls.c2
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -70,12 +75,14 @@ class TestCity(unittest.TestCase):
         self.assertIsInstance(self.c1.name, str)
         self.assertIsInstance(self.c1.state_id, str)
 
-    def to_dict(self):
+    def test_save(self):
+        """Test if instance can be saved"""
+        self.c1.save()
+        self.assertNotEqual(self.c1.created_at, self.c1.updated_at)
+
+    def test_to_dict(self):
         """ Pass """
         c1_dict = self.c1_dict.to_dict()
         self.assertEqual(self.c1_dict.__class__.__name__, "City")
         self.assertIsInstance(c1_dict["created_at"], str)
         self.assertIsInstance(c1_dict["updated_at"], str)
-
-if __name__ == "__main__":
-    unittest.main()

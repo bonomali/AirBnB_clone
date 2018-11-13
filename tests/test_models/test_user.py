@@ -7,6 +7,7 @@ import pep8
 from models.base_model import BaseModel
 from models.user import User
 import json
+import os
 
 
 class TestUser(unittest.TestCase):
@@ -32,6 +33,10 @@ class TestUser(unittest.TestCase):
         """Tears down the instances"""
         del cls.u1
         del cls.u2
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -79,7 +84,12 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(self.u1.password, str)
         self.assertIsInstance(self.u1.email, str)
 
-    def to_dict(self):
+    def test_save(self):
+        """Test if instance can be saved"""
+        self.u1.save()
+        self.assertNotEqual(self.u1.created_at, self.u1.updated_at)
+
+    def test_to_dict(self):
         """ Pass """
         u1_dict = self.u1_dict.to_dict()
         self.assertEqual(self.u1_dict.__class__.__name__, "User")

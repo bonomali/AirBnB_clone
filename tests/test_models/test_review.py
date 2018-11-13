@@ -7,6 +7,7 @@ import pep8
 from models.base_model import BaseModel
 from models.review import Review
 import json
+import os
 
 
 class TestReview(unittest.TestCase):
@@ -24,6 +25,10 @@ class TestReview(unittest.TestCase):
     def tearDownClass(cls):
         """Tears down the instances"""
         del cls.r1
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -66,13 +71,19 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(self.r1.user_id, str)
         self.assertIsInstance(self.r1.text, str)
 
-    def to_dict(self):
+    def test_save(self):
+        """Test if instance can be saved"""
+        self.r1.save()
+        self.assertNotEqual(self.r1.created_at, self.r1.updated_at)
+
+    def test_to_dict(self):
         """ Pass """
         r1_dict = self.r1_dict.to_dict()
         self.assertEqual(self.r1_dict.__class__.__name__, "Review")
         self.assertIsInstance(r1_dict["created_at"], str)
         self.assertIsInstance(r1_dict["updated_at"], str)
         self.assertIsInstance(r1_dict["text"], str)
+
 
 if __name__ == "__main__":
     unittest.main()

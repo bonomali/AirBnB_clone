@@ -7,6 +7,7 @@ import pep8
 from models.base_model import BaseModel
 from models.amenity import Amenity
 import json
+import os
 
 
 class TestAmenity(unittest.TestCase):
@@ -25,6 +26,10 @@ class TestAmenity(unittest.TestCase):
         """Tears down the instances"""
         del cls.amenity1
         del cls.amenity2
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -64,7 +69,12 @@ class TestAmenity(unittest.TestCase):
         # Test that values are strings as intended
         self.assertIsInstance(self.amenity1.name, str)
 
-    def to_dict(self):
+    def test_save(self):
+        """Test if instance can be saved"""
+        self.amenity1.save()
+        self.assertNotEqual(self.amenity1.created_at, self.amenity1.updated_at)
+
+    def test_to_dict(self):
         """ Pass """
         am1_dict = self.am1_dict.to_dict()
         self.assertEqual(self.am1_dict.__class__.__name__, "Amenity")

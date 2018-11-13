@@ -2,6 +2,7 @@
 """Unittest for State class
 """
 
+import os
 import unittest
 import pep8
 from models.base_model import BaseModel
@@ -22,6 +23,10 @@ class TestState(unittest.TestCase):
     def tearDownClass(cls):
         """Tears down the instances"""
         del cls.s1
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -59,12 +64,18 @@ class TestState(unittest.TestCase):
         # Test that values are strings as intended
         self.assertIsInstance(self.s1.name, str)
 
-    def to_dict(self):
+    def test_save(self):
+        """Test if instance can be saved"""
+        self.s1.save()
+        self.assertNotEqual(self.s1.created_at, self.s1.updated_at)
+
+    def test_to_dict(self):
         """ Pass """
         s1_dict = self.s1_dict.to_dict()
         self.assertEqual(self.s1_dict.__class__.__name__, "State")
         self.assertIsInstance(s1_dict["created_at"], str)
         self.assertIsInstance(s1_dict["updated_at"], str)
+
 
 if __name__ == "__main__":
     unittest.main()

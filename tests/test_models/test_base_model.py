@@ -62,18 +62,15 @@ class TestBaseModel(unittest.TestCase):
         # Test that values are strings as intended
         self.assertIsInstance(self.base1.id, str)
 
-    def save(self):
+    def test_save(self):
         """Test if instance can be saved"""
         self.base1.save()
         self.assertNotEqual(self.base1.created_at, self.base1.updated_at)
 
-    def to_dict(self):
+    def test_to_dict(self):
         """Test that a dictionary containing all keys/values of __dict__ of the
         instance is returned"""
         base1_dict = self.base1.to_dict()
         self.assertEqual(self.base1.__class__.__name__, "BaseModel")
         self.assertIsInstance(base1_dict["created_at"], str)
         self.assertIsInstance(base1_dict["updated_at"], str)
-
-if __name__ == "__main__":
-    unittest.main()
