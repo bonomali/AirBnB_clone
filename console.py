@@ -23,7 +23,7 @@ models = {"BaseModel": BaseModel, "User": User, "Place": Place,
 
 class HBNBCommand(cmd.Cmd):
     """ Class containing hbnb commands """
-    intro = '∆===∆===∆ Welcome to the hbnb shell. Type ? for help. ∆===∆===∆\n'
+
     prompt = '(hbnb) '
 
     """ Commands """
@@ -147,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """Gives a new prompt if nothing was entered. """
-        pass
+        return 0
 
     def do_quit(self, line):
         """Quits the program by typing quit."""
