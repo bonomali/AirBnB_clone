@@ -31,8 +31,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_style(self):
         """Tests Pep8 style"""
-        pep = pep8.StyleGuide(quiet=True)
-        p = pep.check_files(["models/engine/file_storage.py"])
+        pep = pep8.StyleGuide(quiet=False)
+        p = pep.check_files(["models/engine/file_storage.py",
+                             "tests/test_models/test_engine/" +
+                             "test_file_storage.py"])
         self.assertEqual(p.total_errors, 0, "PEP8 Errors")
 
     def test_existence(self):

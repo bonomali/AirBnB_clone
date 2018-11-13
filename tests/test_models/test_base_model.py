@@ -28,7 +28,8 @@ class TestBaseModel(unittest.TestCase):
     def test_style(self):
         """Tests Pep8 style"""
         pep = pep8.StyleGuide(quiet=True)
-        p = pep.check_files(["models/base_model.py"])
+        p = pep.check_files(["models/base_model.py",
+                             "tests/test_models/test_base_model.py"])
         self.assertEqual(p.total_errors, 0, "PEP8 Errors")
 
     def test_existence(self):
