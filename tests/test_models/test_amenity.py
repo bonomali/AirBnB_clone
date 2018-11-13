@@ -51,7 +51,7 @@ class TestAmenity(unittest.TestCase):
 
     def test_is_subclass(self):
         """Tests to see if Amenity is a subclass of BaseModel"""
-        self.assertTrue(issubclass(self.amenity1.__class__, BaseModel))
+        self.assertTrue(issubclass(Amenity, BaseModel))
 
     def test_basic(self):
         """Test basic functionality of class"""
@@ -70,6 +70,3 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(self.am1_dict.__class__.__name__, "Amenity")
         self.assertIsInstance(am1_dict["created_at"], str)
         self.assertIsInstance(am1_dict["updated_at"], str)
-
-if __name__ == "__main__":
-    unittest.main()

@@ -104,6 +104,3 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(self.p1_dict.__class__.__name__, "Place")
         self.assertIsInstance(p1_dict["created_at"], str)
         self.assertIsInstance(p1_dict["updated_at"], str)
-
-if __name__ == "__main__":
-    unittest.main()

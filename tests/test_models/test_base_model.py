@@ -3,7 +3,6 @@
 """
 import unittest
 import pep8
-import os
 from models.base_model import BaseModel
 
 
@@ -25,10 +24,6 @@ class TestBaseModel(unittest.TestCase):
         """Tears down the instances"""
         del cls.base1
         del cls.base2
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
 
     def test_style(self):
         """Tests Pep8 style"""
@@ -74,6 +69,3 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(self.base1.__class__.__name__, "BaseModel")
         self.assertIsInstance(base1_dict["created_at"], str)
         self.assertIsInstance(base1_dict["updated_at"], str)
-
-if __name__ == "__main__":
-    unittest.main()

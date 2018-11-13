@@ -73,6 +73,3 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(r1_dict["created_at"], str)
         self.assertIsInstance(r1_dict["updated_at"], str)
         self.assertIsInstance(r1_dict["text"], str)
-
-if __name__ == "__main__":
-    unittest.main()
