@@ -46,8 +46,8 @@ class BaseModel:
         Returns:
             A string representation of the class name, id, and dict
         """
-        return("[{}] ({}) {}".format(self.__class__.__name__, self.id,
-                                     self.__dict__))
+        return("[{}] ({}) {}".format(str(self.__class__.__name__), self.id,
+                                     str(self.__dict__)))
 
     def save(self):
         """Updates updated_at with the current datetime
