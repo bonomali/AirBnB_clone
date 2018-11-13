@@ -27,7 +27,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_style(self):
         """Tests Pep8 style"""
-        pep = pep8.StyleGuide(quiet=True)
+        pep = pep8.StyleGuide(quiet=False)
         p = pep.check_files(["models/base_model.py",
                              "tests/test_models/test_base_model.py"])
         self.assertEqual(p.total_errors, 0, "PEP8 Errors")
@@ -45,7 +45,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(BaseModel.save.__doc__)
         self.assertTrue(BaseModel.to_dict.__doc__)
         self.assertTrue(BaseModel.__str__.__doc__)
-
 
     def test_basic(self):
         """Test basic functionality of class"""
