@@ -76,3 +76,6 @@ class TestCity(unittest.TestCase):
         self.assertEqual(self.c1_dict.__class__.__name__, "City")
         self.assertIsInstance(c1_dict["created_at"], str)
         self.assertIsInstance(c1_dict["updated_at"], str)
+
+if __name__ == "__main__":
+    unittest.main()
