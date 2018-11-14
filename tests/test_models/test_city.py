@@ -82,7 +82,7 @@ class TestCity(unittest.TestCase):
 
     def test_to_dict(self):
         """ Pass """
-        c1_dict = self.c1_dict.to_dict()
-        self.assertEqual(self.c1_dict.__class__.__name__, "City")
+        c1_dict = self.c1.to_dict()
+        self.assertEqual(self.c1.__class__.__name__, "City")
         self.assertIsInstance(c1_dict["created_at"], str)
         self.assertIsInstance(c1_dict["updated_at"], str)

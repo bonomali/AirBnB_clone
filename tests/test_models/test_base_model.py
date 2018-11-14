@@ -46,7 +46,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(BaseModel.to_dict.__doc__)
         self.assertTrue(BaseModel.__str__.__doc__)
 
-
     def test_basic(self):
         """Test basic functionality of class"""
         # Test instance creation

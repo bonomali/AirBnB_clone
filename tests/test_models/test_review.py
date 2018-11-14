@@ -78,15 +78,8 @@ class TestReview(unittest.TestCase):
 
     def test_to_dict(self):
         """ Pass """
-        r1_dict = self.r1_dict.to_dict()
-        self.assertEqual(self.r1_dict.__class__.__name__, "Review")
+        r1_dict = self.r1.to_dict()
+        self.assertEqual(self.r1.__class__.__name__, "Review")
         self.assertIsInstance(r1_dict["created_at"], str)
         self.assertIsInstance(r1_dict["updated_at"], str)
         self.assertIsInstance(r1_dict["text"], str)
-<<<<<<< HEAD
-
-
-if __name__ == "__main__":
-    unittest.main()
-=======
->>>>>>> 379396922830566728f79c0302133e55168c5902

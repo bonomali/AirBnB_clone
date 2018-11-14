@@ -109,14 +109,7 @@ class TestPlace(unittest.TestCase):
 
     def test_to_dict(self):
         """ Pass """
-        p1_dict = self.p1_dict.to_dict()
-        self.assertEqual(self.p1_dict.__class__.__name__, "Place")
+        p1_dict = self.p1.to_dict()
+        self.assertEqual(self.p1.__class__.__name__, "Place")
         self.assertIsInstance(p1_dict["created_at"], str)
         self.assertIsInstance(p1_dict["updated_at"], str)
-<<<<<<< HEAD
-
-
-if __name__ == "__main__":
-    unittest.main()
-=======
->>>>>>> 379396922830566728f79c0302133e55168c5902

@@ -76,7 +76,7 @@ class TestAmenity(unittest.TestCase):
 
     def test_to_dict(self):
         """ Pass """
-        am1_dict = self.am1_dict.to_dict()
-        self.assertEqual(self.am1_dict.__class__.__name__, "Amenity")
+        am1_dict = self.amenity1.to_dict()
+        self.assertEqual(self.amenity1.__class__.__name__, "Amenity")
         self.assertIsInstance(am1_dict["created_at"], str)
         self.assertIsInstance(am1_dict["updated_at"], str)

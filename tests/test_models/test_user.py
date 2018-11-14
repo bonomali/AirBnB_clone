@@ -90,8 +90,8 @@ class TestUser(unittest.TestCase):
         self.assertNotEqual(self.u1.created_at, self.u1.updated_at)
 
     def test_to_dict(self):
-        """ Pass """
-        u1_dict = self.u1_dict.to_dict()
-        self.assertEqual(self.u1_dict.__class__.__name__, "User")
+        """Test dict """
+        u1_dict = self.u1.to_dict()
+        self.assertEqual(self.u1.__class__.__name__, 'User')
         self.assertIsInstance(u1_dict["created_at"], str)
         self.assertIsInstance(u1_dict["updated_at"], str)
