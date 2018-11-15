@@ -103,6 +103,21 @@ README.md| A file containing the goal of the project and the requirements and re
 AUTHORS| A file listing the contributors to the repository
 base_model.py | A file detailing the functionality of the base class upon which all other classes in this console will based
 file_storage.py | A file containing a class that serializes and deserializes instances to and from a JSON file.
+amenity.py | a file defining the amenity class
+city.py | defines the city class
+place.py | defines the place class
+review.py | defines the review class
+state.py | defines the place class
+user.py | defines the user class
+... | ...
+test_file_storage | contains the tests for the FileStorage class
+base_model.py | contains the tests for the BaseModel class
+amenity.py | contains the tests for the Amenity class
+city.py | contains the tests for the City class
+place.py | contains the tests for the Place class
+review.py | contains the tests for the Review class
+test_state.py | contains the tests for the State class
+test_user.py | contains the tests for the User class
 
 ---
 ## Authors
