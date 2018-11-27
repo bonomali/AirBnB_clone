@@ -59,6 +59,10 @@ li {
   list-style: none;
   margin: 10px 0;
 }
+
+.locations li {
+  margin: 10px -15px;
+}
 .amenities li {
   padding: 5px;
 }
