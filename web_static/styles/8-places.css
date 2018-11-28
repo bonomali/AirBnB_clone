@@ -74,10 +74,10 @@ article h2 {
   background-position: center;
 }
 
+/* Text that goes under logos */
 p {
   display: inline-block;
 }
-
 .info-text {
   margin-top: -40px;
 }
@@ -85,16 +85,15 @@ p {
   float: left;
   margin-left: 63px;
 }
-
 .room-txt {
   margin-left: 8px;
 }
-
 .bath-txt {
   float: right;
   margin-right: 49px;
 }
 
+/* User / description */
 .user p{
   float: left;
   margin-bottom: 0px;
